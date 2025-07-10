@@ -4,8 +4,12 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+import { useSession } from '@/lib/auth-client'
+import UserMenue from '../auth/user-menue'
 
 const Header = () => {
+
+    const {data: session,isPending}=useSession()
 
     const navItems=[{
         label : 'Home' , href:'/'
@@ -38,11 +42,15 @@ const Header = () => {
                     </div>
                     {/* placeholder to toggle theme */}
                     <div className='flex items-center gap-2'>
-                        <Button  asChild>
+                       {
+                        isPending ? null : session?.user?(
+                            <UserMenue user={session?.user}/>
+                        ): <Button  asChild>
                             <Link href={'auth'}>
                             Login
                             </Link>
                         </Button>
+                       }
                     </div>
             </div>  
             
