@@ -6,15 +6,17 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { useSession } from '@/lib/auth-client'
 import UserMenue from '../auth/user-menue'
+import { ThemeToggle } from '../theme/theme-toggle'
+import { Home, PackagePlus } from 'lucide-react'
 
 const Header = () => {
 
     const {data: session,isPending}=useSession()
 
     const navItems=[{
-        label : 'Home' , href:'/'
+        label :(<> <Home/> Home</>), href:'/'
     },{
-        label : 'Add Lost Item' , href: '/found/add'
+        label :(<> <PackagePlus/> Add Found Item</>), href: '/found/add'
     }]
 
   return (
@@ -41,6 +43,7 @@ const Header = () => {
                         {/* keep an placeholder for search */}
                     </div>
                     {/* placeholder to toggle theme */}
+                    <ThemeToggle/>
                     <div className='flex items-center gap-2'>
                        {
                         isPending ? null : session?.user?(
