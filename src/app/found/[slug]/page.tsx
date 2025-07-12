@@ -1,9 +1,15 @@
 
 
 
-const ItemDetail = () => {
+const ItemDetail = ({
+  params,
+}:{
+  params: Promise<{slug : string}>
+}) => {
   return (
-    <div>Item detail</div>
+    <div>
+
+    </div>
   )
 }
 
