@@ -8,7 +8,7 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 import { useState } from "react"
-import { AddItem } from "@/actions/found-actions"
+import { AddItem, UpdateItem } from "@/actions/found-actions"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
@@ -21,15 +21,32 @@ const addSchema = z.object({
 
 })
 
+interface ItemFormProps{
+  isEditing ? : boolean,
+  found : {
+    id : number,
+    item : string,
+    location : string,
+    description : string,
+    slug : string
+  }
+}
+
 type AddFormValues = z.infer<typeof addSchema>
 
-const AddForm=()=>{
+const AddForm=({isEditing,found} : ItemFormProps)=>{
   const router =useRouter()
     const [isLoading,setIsLoading]=useState(false)
 
     const form = useForm<AddFormValues>({
         resolver:zodResolver(addSchema),
-        defaultValues : {
+        defaultValues :isEditing && found?
+        {
+          item : found.item,
+          location: found.location ,
+          description : found.description
+        }:
+         {
           item: "",
           location: "",
           description: "",
@@ -44,9 +61,22 @@ const AddForm=()=>{
           formData.append('location',data.location)
           formData.append('description',data.description)
 
-          let res=await AddItem(formData)
+          let res;
+          
+
+          if (isEditing && found){
+            console.log('abc');
+            res = await UpdateItem(found.id,formData)
+          }else{
+            console.log('lksakdfj');
+            
+            
+          res=await AddItem(formData)
+          }
+
+          
           if (res.success){
-            toast.success('Item added successfully')
+            toast.success(isEditing? 'Item updated Successfully' : 'Ite added Successfully')
             router.refresh()
             router.push('/')
           }else{
@@ -112,7 +142,7 @@ const AddForm=()=>{
       />
       <Button type="submit" className="w-full" disabled={isLoading}>
       {
-        isLoading ? 'Adding item..' : 'Add Item'
+        isLoading ? 'Saving item...' : isEditing ? 'Update Item' : 'Add Item'
       }
       </Button>
     </form>

@@ -27,3 +27,19 @@ export interface ItemCardProps{
         };
     }
 }
+
+export interface ItemContentProps{
+    item : {
+        id: number;
+        item:string;
+        location: string;
+        description:string;
+        slug:string;
+        createdAt:Date;
+        updatedAt : Date;
+        client: {
+            name :string;
+        };
+    };
+    isClient : boolean;
+}

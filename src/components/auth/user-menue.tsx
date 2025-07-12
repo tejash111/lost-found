@@ -33,6 +33,7 @@ const UserMenue = ({user} :UserMenuProps) => {
           onSuccess: ()=>{
             toast.success('You have been logged out successfully!')
             router.refresh()
+            router.push('/')
           }
         }
       })

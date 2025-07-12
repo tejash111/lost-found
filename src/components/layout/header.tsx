@@ -23,13 +23,14 @@ const Header = () => {
     <div className='border-b bg-background sticky top-0 z-10'>
         <div className='container mx-auto px-4 h-16 flex items-center justify-between'>
             <div className='flex items-center gap-6 justify-between'> 
-                <Link className='text-xl font-extrabold flex' href={'/'}>
-                Lost & Found
+                <Link className='text-xl  flex' href={'/'}>
+                <img src="/iconfound.png" alt=""  className='h-9'/>
+                 <div className='text-gray-600 mt-1'> -𝙵𝚘𝚞𝚗𝚍</div>
                 </Link>
                 <nav className='hidden md:flex items-center gap-6 justify-between' >
                     {
                         navItems.map(item=>(
-                            <Link key={item.href} href={item.href} className={cn('text-sm font-medium transition-colors hover:text-primary')}>
+                            <Link key={item.href} href={item.href} className={cn('text-sm font-medium transition-colors hover:text-primary text-gray-600')}>
                                 <Button variant="outline">{item.label}</Button>
                             
                             </Link>
@@ -43,12 +44,12 @@ const Header = () => {
                         {/* keep an placeholder for search */}
                     </div>
                     {/* placeholder to toggle theme */}
-                    <ThemeToggle/>
+                    <ThemeToggle />
                     <div className='flex items-center gap-2'>
                        {
                         isPending ? null : session?.user?(
                             <UserMenue user={session?.user}/>
-                        ): <Button  asChild>
+                        ): <Button className=''  asChild>
                             <Link href={'auth'}>
                             Login
                             </Link>

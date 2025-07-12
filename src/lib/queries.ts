@@ -22,7 +22,7 @@ export const getAllItem=async()=>{
     }
 }
 
-const getItemBySlug=async(slug : string)=>{
+export const getItemBySlug=async(slug : string)=>{
     try {
         const item=await db.query.found.findFirst({
             where : eq(found.slug,slug),
@@ -30,6 +30,7 @@ const getItemBySlug=async(slug : string)=>{
                 client: true
             }
         })
+        return item;
     } catch (error) {
         console.log(error);
         return null;
