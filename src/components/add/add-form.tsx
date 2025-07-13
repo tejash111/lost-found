@@ -100,7 +100,7 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
       name="item"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Item Name
           </FormLabel>
           <FormControl>
@@ -115,7 +115,7 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
       name="location"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Location
           </FormLabel>
           <FormControl>
@@ -130,7 +130,7 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
       name="description"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Description of Item
           </FormLabel>
           <FormControl>
@@ -140,7 +140,7 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
         </FormItem>
       )}
       />
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button type="submit" className="w-full dark:bg-gray-400" disabled={isLoading}>
       {
         isLoading ? 'Saving item...' : isEditing ? 'Update Item' : 'Add Item'
       }

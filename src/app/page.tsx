@@ -27,7 +27,7 @@ export default async function Home() {
          
         {found.length ===0? (
           <div className="text-center py-10">
-            <h2 className="text-xl font-medium">No Lost Item yet</h2>
+            <h2 className="text-xl font-medium text-gray-500">No Lost Item yet</h2>
           </div>
         ) : <ItemList found={found}/>
           }

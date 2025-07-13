@@ -4,31 +4,39 @@ import { ItemContentProps } from '@/lib/types'
 import React from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { formatDate } from '@/lib/utils'
-import { MapPin, Pencil } from 'lucide-react'
+import { MapPin, PackagePlus, Pencil } from 'lucide-react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import DeletePostButton from './delete-item-btn'
 
 const ItemContent = ({item,isClient} : ItemContentProps) => {
   return (
-    <Card>
+    <Card className=" text-gray-600 hover:border-gray-600">
         <CardHeader>
-            <CardTitle className='text-3xl font-normal'>{item.item}</CardTitle>
-            <CardDescription className='mt-2  p-1 rounded-lg border w-fit'>Added By : {item.client.name} - {formatDate(item.createdAt)}</CardDescription>
-            <CardDescription className='flex gap-1 mt-1'>
-                <MapPin className='mt-1 '/> <div className='font-normal text-lg '>{item.location}</div>
+            <CardTitle className='flex gap-2 text-3xl font-normal text-[#49505a]'>
+                <div className='flex justify-between w-full'>
+                    <div><PackagePlus className='mt-2'/>{item.item}</div>
+                    <div><Button className='dark:bg-gray-300'>Claim Item</Button></div>
+                </div>
+            
+            </CardTitle>
+            <CardDescription className='mt-2 p-1 rounded-lg text-sm text-[#49505a] bg-transparent'>
+              Added By : {item.client.name} - {formatDate(item.createdAt)}
+            </CardDescription>
+            <CardDescription className='flex gap-1 mt-1 items-center text-[#49505a] bg-transparent'>
+                <MapPin className='mt-1 w-5 h-5 text-[#49505a]'/> <div className='font-normal text-lg'>{item.location}</div>
             </CardDescription>
         </CardHeader>
-        <CardContent className='text-xl mt-2 '>
+        <CardContent className='text-xl mt-2 text-[#49505a]'>
             {item.description}
         </CardContent>
         {
             isClient && (
                 <CardFooter className=''>
                     <div className='flex gap-2'>
-                        <Button asChild variant={'outline'} size={'sm'}>
+                        <Button asChild variant={'outline'} size={'sm'} className='text-gray-600 '>
                             <Link href={`/found/edit/${item.slug}`}>
-                            <Pencil className='h-4 w-4 mr-2'/>
+                            <Pencil className='h-4 w-4 mr-2 text-[#49505a]'/>
                             Edit
                             </Link>
                         </Button>
@@ -37,7 +45,6 @@ const ItemContent = ({item,isClient} : ItemContentProps) => {
                 </CardFooter>
             )
         }
-
     </Card>
   )
 }

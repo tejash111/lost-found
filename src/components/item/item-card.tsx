@@ -27,7 +27,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         </div>
         <div className="flex-1 ">
           
-            <CardTitle className="text-3xl hover:text-white font-normal text-gray-600 flex gap-1">
+            <CardTitle className="text-3xl hover:text-gray-400 font-normal text-gray-600 flex gap-1">
              <PackagePlus className='mt-2'/> {item.item}
             </CardTitle>
           

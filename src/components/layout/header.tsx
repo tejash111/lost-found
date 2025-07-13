@@ -21,24 +21,25 @@ const Header = () => {
 
   return (
     <div className='border-b bg-background sticky top-0 z-10'>
-        <div className='container mx-auto px-4 h-16 flex items-center justify-between'>
-            <div className='flex items-center gap-6 justify-between'> 
-                <Link className='text-xl  flex' href={'/'}>
+        <div className='container mx-auto px-4 h-16 flex items-center justify-between relative'>
+            <div className='flex items-center gap-6'> 
+                <Link className='text-xl  flex' href={'/landing-page'}>
                 <img src="/iconfound.png" alt=""  className='h-9'/>
                  <div className='text-gray-600 mt-1'> -𝙵𝚘𝚞𝚗𝚍</div>
                 </Link>
-                <nav className='hidden md:flex items-center gap-6 justify-between' >
-                    {
-                        navItems.map(item=>(
-                            <Link key={item.href} href={item.href} className={cn('text-sm font-medium transition-colors hover:text-primary text-gray-600')}>
-                                <Button variant="outline">{item.label}</Button>
-                            
-                            </Link>
-                        ))
-                    }
-                </nav>
             </div>
-
+            {/* Centered nav */}
+            <nav className=' md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+               <div className='flex gap-4 ml-4 md:gap-12 md:ml-0'>
+               <Link href={'/'}>
+                <Button variant={'outline'} className='text-sm font-medium transition-colors hover:text-primary text-gray-600'><Home/> <div className='hidden md:flex'>Home</div></Button>
+                </Link>
+                <Link href={'/found/add'}>
+                <Button variant={'outline'} className='text-sm font-medium transition-colors hover:text-primary text-gray-600'><PackagePlus/> <div className='hidden md:flex'>Add Found Item</div></Button>
+                </Link>
+                
+               </div>
+            </nav>
             <div className='flex items-center gap-4'>
                     <div className='hidden md:block'>
                         {/* keep an placeholder for search */}
@@ -49,7 +50,7 @@ const Header = () => {
                        {
                         isPending ? null : session?.user?(
                             <UserMenue user={session?.user}/>
-                        ): <Button className=''  asChild>
+                        ): <Button className='dark:bg-gray-300'  asChild>
                             <Link href={'auth'}>
                             Login
                             </Link>

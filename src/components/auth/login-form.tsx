@@ -66,7 +66,7 @@ const LoginForm = () => {
         name="email"
         render={({field})=>(
           <FormItem>
-            <FormLabel>
+            <FormLabel className="text-gray-500">
               Email
             </FormLabel>
             <FormControl>
@@ -81,7 +81,7 @@ const LoginForm = () => {
         name="password"
         render={({field})=>(
           <FormItem>
-            <FormLabel>
+            <FormLabel className="text-gray-500">
               Password
             </FormLabel>
             <FormControl>
@@ -91,7 +91,7 @@ const LoginForm = () => {
           </FormItem>
         )}
         />
-        <Button type="submit" className="w-full" disabled={isLoading}>
+        <Button type="submit" className="w-full dark:bg-gray-400" disabled={isLoading}>
       {
         isLoading ? 'Signing in..' : 'Sign In'
       }

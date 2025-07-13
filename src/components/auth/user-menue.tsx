@@ -46,17 +46,17 @@ const UserMenue = ({user} :UserMenuProps) => {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <DropdownMenu >
+      <DropdownMenuTrigger asChild >
         <Button variant="ghost" className='releative h-8 w-8 rounded-full cursor-pointer'>
           <Avatar>
-            <AvatarFallback className='h-8 w-8'>
+            <AvatarFallback className='h-8 w-8 text-gray-600 '>
               {getInititals(user?.name) || "User"}
             </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className='w-56'>
+      <DropdownMenuContent align="end" className='w-56 text-gray-600'>
         <div className='flex items-center justify-start gap-2 p-2'>
           <div className='flex flex-col space-y-1 leading-none'>
           <p className='font-semibold'>{user.name}</p>
@@ -66,14 +66,14 @@ const UserMenue = ({user} :UserMenuProps) => {
         <DropdownMenuSeparator/>
       <DropdownMenuItem className='cursor-pointer' asChild>
         <Link href='/profile'>
-        <UserIcon className='mr-2 h-4 w-4'/>
+        <UserIcon className='mr-2 h-4 w-4 text-gray-600'/>
         <span>Profile</span>
         </Link>
 
       </DropdownMenuItem>
       <DropdownMenuItem className='cursor-pointer' asChild>
         <Link href='/found/add'>
-        <PackagePlus className='mr-2 h-4 w-4'/>
+        <PackagePlus className='mr-2 h-4 w-4 text-gray-600'/>
         <span>Add Lost Item</span>
         </Link>
       </DropdownMenuItem>
@@ -82,7 +82,7 @@ const UserMenue = ({user} :UserMenuProps) => {
       onClick={handleLogout}
       disabled={isLoading}
       className='cursor-pointer'>
-        <LogOut className='mr-3 h-4 w-4'/>
+        <LogOut className='mr-3 h-4 w-4 text-gray-600'/>
         <span>{isLoading? 'Logging out...' : 'Logout'}</span>
       </DropdownMenuItem>
       </DropdownMenuContent>

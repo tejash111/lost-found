@@ -19,21 +19,21 @@ export default function LandingPage() {
           {/* Hero Section */}
           <section className="flex flex-col items-center gap-6 max-w-2xl">
             <div className="flex justify-center">
-              <Image src="/iconfound.png" alt="Lost & Found" width={130} height={130} className="mb-4" />
+              <Image src="/iconfound.png" alt="Lost & Found" width={130} height={130} className="mb-4" /><div className='text-7xl font-light text-gray-600 mt-5'>-𝙵𝚘𝚞𝚗𝚍</div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-normal tracking-tight">𝙰 𝙿2𝙿 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖 : 𝙻𝚘𝚜𝚝 & 𝙵𝚘𝚞𝚗𝚍</h1>
+            <h1 className="text-4xl md:text-5xl font-normal tracking-tight dark:text-gray-400">𝙰 𝙿2𝙿 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖 : 𝙻𝚘𝚜𝚝 & 𝙵𝚘𝚞𝚗𝚍</h1>
             <p className="text-lg md:text-xl text-muted-foreground">
               Lost something? Found something? Connect directly with people in your community to return lost items quickly and securely.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
+            <div className="flex flex-col  sm:flex-row gap-4 justify-center mt-4">
               
-                <Button asChild size="lg">
+                <Button asChild size="lg" className='dark:bg-gray-300'>
                   <Link href="/found/add">Report Found Item</Link>
                 </Button>
 
-            <div className='text-2xl'><Activity className='mt-2 ml-17 md:ml-0'/></div>
+            <div className='text-2xl'><Activity className='mt-2 ml-17 md:ml-0 dark:text-gray-400'/></div>
 
-                <Button size={'lg'}>Found lost Item</Button>
+                <Button size={'lg'} className='dark:bg-gray-300'>Found lost Item</Button>
             </div>
           </section>
 

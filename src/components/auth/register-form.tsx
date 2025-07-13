@@ -76,7 +76,7 @@ const RegisterForm = ({onSuccess}:RegisterFormProps) => {
       name="name"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Name
           </FormLabel>
           <FormControl>
@@ -91,7 +91,7 @@ const RegisterForm = ({onSuccess}:RegisterFormProps) => {
       name="email"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Email
           </FormLabel>
           <FormControl>
@@ -106,7 +106,7 @@ const RegisterForm = ({onSuccess}:RegisterFormProps) => {
       name="password"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Passoword
           </FormLabel>
           <FormControl>
@@ -121,7 +121,7 @@ const RegisterForm = ({onSuccess}:RegisterFormProps) => {
       name="confirmPassword"
       render={({field})=>(
         <FormItem>
-          <FormLabel>
+          <FormLabel className="text-gray-500">
             Confirm Password
           </FormLabel>
           <FormControl>
@@ -131,7 +131,7 @@ const RegisterForm = ({onSuccess}:RegisterFormProps) => {
         </FormItem>
       )}
       />
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button type="submit" className="w-full dark:bg-gray-400" disabled={isLoading}>
       {
         isLoading ? 'Creating Account..' : 'Create Account'
       }
