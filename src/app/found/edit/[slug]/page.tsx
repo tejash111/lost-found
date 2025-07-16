@@ -14,7 +14,7 @@ const EditItem = async({
   params: {slug : string}
 }) => {
 
-  const {slug}=await params;
+  const {slug}= params;
 
    const session = await auth.api.getSession({
       headers : await headers()

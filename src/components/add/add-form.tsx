@@ -29,7 +29,7 @@ interface ItemFormProps{
     location : string,
     description : string,
     slug : string,
-    image : null
+    image :string | null
   }
 }
 
