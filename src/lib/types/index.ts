@@ -48,11 +48,11 @@ export interface ItemContentProps{
 export interface ItemFormProps {
     isEditing?: boolean,
     found: {
-        id: number,
-        item: string,
-        location: string,
-        description: string,
-        slug: string,
-        image?: string
+        id: number;
+        item: string;
+        location: string;
+        description: string;
+        slug: string;
+        image?: string;
     }
 }

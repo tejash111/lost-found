@@ -8,15 +8,11 @@ import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react'
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
 
-const EditItem = async({params}:PageProps ) => {
 
-  const {slug}= params;
+const EditItem = async({ params }: { params: Promise<{ slug: string }> }) => {
+
+  const {slug}=await params;
 
    const session = await auth.api.getSession({
       headers : await headers()

@@ -5,16 +5,17 @@ import { headers } from "next/headers"
 import { notFound } from "next/navigation"
 
 
-interface PageProps {
-  params: {
-    slug: string
-  }
-}
-
-const ItemDetail = async({ params }: PageProps) => {
-  const {slug}=params
+const ItemDetail = async({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const { slug }= await params
   const item = await getItemBySlug(slug)
-  console.log(item);
+
+  if (!item){
+    notFound()
+  }
   
 
   const session = await auth.api.getSession({
@@ -24,9 +25,7 @@ const ItemDetail = async({ params }: PageProps) => {
   
   
 
-  if (!item){
-    notFound()
-  }
+  
 
   //get client info
   const isClient = session?.user?.id === item.clientId
