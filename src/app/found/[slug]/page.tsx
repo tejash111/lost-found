@@ -1,17 +1,17 @@
 import ItemContent from "@/components/item/item-content"
 import { auth } from "@/lib/auth"
 import { getItemBySlug } from "@/lib/queries"
-import { param } from "drizzle-orm"
 import { headers } from "next/headers"
 import { notFound } from "next/navigation"
 
 
+interface PageProps {
+  params: {
+    slug: string
+  }
+}
 
-const ItemDetail = async({
-  params,
-}:{
-  params: {slug : string}
-}) => {
+const ItemDetail = async({ params }: PageProps) => {
   const {slug}=params
   const item = await getItemBySlug(slug)
   console.log(item);

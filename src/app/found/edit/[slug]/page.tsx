@@ -8,11 +8,13 @@ import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react'
 
-const EditItem = async({
-  params,
-}:{
-  params: {slug : string}
-}) => {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+const EditItem = async({params}:PageProps ) => {
 
   const {slug}= params;
 
