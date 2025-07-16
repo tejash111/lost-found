@@ -1,11 +1,10 @@
-
-
 export interface ItemListProps{
     found : Array<{
         id: number;
         item:string;
         location: string;
         description:string;
+        image:string;
         slug:string;
         createdAt:Date;
         client: {
@@ -20,6 +19,7 @@ export interface ItemCardProps{
         item:string;
         location: string;
         description:string;
+        image:string;
         slug:string;
         createdAt:Date;
         client: {
@@ -34,6 +34,7 @@ export interface ItemContentProps{
         item:string;
         location: string;
         description:string;
+        image:string;
         slug:string;
         createdAt:Date;
         updatedAt : Date;
@@ -42,4 +43,16 @@ export interface ItemContentProps{
         };
     };
     isClient : boolean;
+}
+
+export interface ItemFormProps {
+    isEditing?: boolean,
+    found: {
+        id: number,
+        item: string,
+        location: string,
+        description: string,
+        slug: string,
+        image?: string
+    }
 }

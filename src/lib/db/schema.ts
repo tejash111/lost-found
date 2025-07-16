@@ -37,6 +37,7 @@ export const found= pgTable('found',{
     item: varchar('item',{length:225}).notNull(),
     location: varchar('location',{length:225 }).notNull(),
     description: text('description').notNull(),
+    image:text('image').notNull(),
     slug: varchar('slug',{length:225}).notNull().unique(),
     clientId :varchar('client_id',{length:225}).references(()=>users.id).notNull(),
     createdAt : timestamp('created_at').defaultNow().notNull(),

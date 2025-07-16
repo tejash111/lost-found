@@ -27,6 +27,7 @@ export const AddItem = async(formData : FormData)=>{
         const item = formData.get('item') as string;
         const location = formData.get('location') as string;
         const description = formData.get('description') as string;
+        const image = formData.get('image') as string;
 
         //implement extra validation check
 
@@ -47,7 +48,7 @@ export const AddItem = async(formData : FormData)=>{
         }
 
         const [newItem]=await db.insert(found).values({
-            item,location,description,slug,
+            item,location,description,slug,image,
             clientId : session.user.id
         })
         .returning();

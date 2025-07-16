@@ -17,8 +17,8 @@ import { useRouter } from "next/navigation"
 const addSchema = z.object({
     item:z.string().min(3,'item must be 3 characters long').max(225,'item must be less than 225 characters'),
     location:z.string().min(5,'location must be 5 characters long').max(225,'location must be less than 225 characters'),
-    description:z.string().min(5,'description must be 5 characters long').max(225,'description must be less than 225 characters')
-
+    description:z.string().min(5,'description must be 5 characters long').max(225,'description must be less than 225 characters'),
+    image: z.string().optional(), 
 })
 
 interface ItemFormProps{
@@ -28,8 +28,15 @@ interface ItemFormProps{
     item : string,
     location : string,
     description : string,
-    slug : string
+    slug : string,
+    image : null
   }
+}
+
+type CloudinarySignature={
+  signature : string;
+  timestamp : number;
+  apiKey :string;
 }
 
 type AddFormValues = z.infer<typeof addSchema>
@@ -37,6 +44,23 @@ type AddFormValues = z.infer<typeof addSchema>
 const AddForm=({isEditing,found} : ItemFormProps)=>{
   const router =useRouter()
     const [isLoading,setIsLoading]=useState(false)
+    const [imageString, setImageString] = useState<string | undefined>(undefined);
+    const [isUploading,setIsUploading]=useState(false)
+    const [uploadProgress,setUplaodProgress]=useState(0)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        setSelectedFile(file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImageString(reader.result as string);
+          form.setValue('image', reader.result as string); // update form value
+        };
+        reader.readAsDataURL(file);
+      }
+    };
 
     const form = useForm<AddFormValues>({
         resolver:zodResolver(addSchema),
@@ -44,7 +68,8 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
         {
           item : found.item,
           location: found.location ,
-          description : found.description
+          description : found.description,
+          image: found.image || ""
         }:
          {
           item: "",
@@ -53,13 +78,76 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
         }
        })
 
+       async function getCloudinarySignature(): Promise<CloudinarySignature>{
+        const timestamp = Math.round(new Date().getTime()/1000);
+
+        const response = await fetch('/api/cloudinary/signature',{
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({timestamp})
+        })
+
+        if (!response.ok){
+            throw new Error('Faled to create cloudinary Signature');
+        }
+
+        return response.json();
+    }
+
        const onAddFormSubmit= async(data : AddFormValues)=>{
         setIsLoading(true)
+
         try {
+
+          const {signature,apiKey,timestamp} = await getCloudinarySignature();
+
+          const cloudinaryData = new FormData();
+          if (!selectedFile) {
+            toast.error('Please select an image to upload.');
+            setIsLoading(false);
+            return;
+          }
+          cloudinaryData.append('file', selectedFile);
+          cloudinaryData.append('api_key',apiKey)
+          cloudinaryData.append('timestamp',timestamp.toString())
+          cloudinaryData.append('signature',signature)
+          cloudinaryData.append('folder',"lostandfound")
+
+          const xhr = new XMLHttpRequest()
+          xhr.open('POST',`https://api.cloudinary.com/v1_1/dr1gpbjgg/auto/upload`)
+
+          xhr.upload.onprogress=(event)=>{
+              if (event.lengthComputable){
+                  const progress = Math.round((event.loaded/event.total)*100)
+                  setUplaodProgress(progress)
+              }
+          }
+
+          const cloudinaryPromise = new Promise<any>((resolve,reject)=>{
+              xhr.onload = ()=>{
+                  if (xhr.status >= 200 && xhr.status<300){
+                      const response = JSON.parse(xhr.responseText)
+                      resolve(response)
+                  }else{
+                      reject(new Error('upload to cloudinary failed'))
+                  } 
+              }
+              xhr.onerror = ()=>reject(new Error('upload ot cloudinary failed'))
+          })
+
+          xhr.send(cloudinaryData)
+
+          const cloudinaryResponse = await cloudinaryPromise;
+
           const formData = new FormData()
           formData.append('item',data.item)
           formData.append('location',data.location)
           formData.append('description',data.description)
+          formData.append('image', cloudinaryResponse.secure_url);
+          console.log(data);
+          
 
           let res;
           
@@ -140,6 +228,21 @@ const AddForm=({isEditing,found} : ItemFormProps)=>{
         </FormItem>
       )}
       />
+
+{/* Image Upload */}
+<div className="space-y-2">
+  <FormLabel htmlFor="image" className="text-gray-500">Image</FormLabel>
+  <Input
+    type="file"
+    id="image"
+    name="image"
+    accept="image/*"
+    onChange={handleFileChange}
+    disabled={isLoading}
+  />
+  <FormMessage />
+</div>
+
       <Button type="submit" className="w-full dark:bg-gray-400" disabled={isLoading}>
       {
         isLoading ? 'Saving item...' : isEditing ? 'Update Item' : 'Add Item'

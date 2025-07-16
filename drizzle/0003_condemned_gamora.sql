@@ -1,0 +1,1 @@
+ALTER TABLE "found" ADD COLUMN "location" varchar(225) NOT NULL;

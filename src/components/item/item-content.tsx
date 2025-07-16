@@ -11,14 +11,17 @@ import DeletePostButton from './delete-item-btn'
 
 const ItemContent = ({item,isClient} : ItemContentProps) => {
   return (
-    <Card className=" text-gray-600 hover:border-gray-600">
+    <Card className=" text-gray-600 hover:border-gray-600  ">
         <CardHeader>
             <CardTitle className='flex gap-2 text-3xl font-normal text-[#49505a]'>
                 <div className='flex justify-between w-full'>
-                    <div><PackagePlus className='mt-2'/>{item.item}</div>
-                    <div><Button className='dark:bg-gray-300'>Claim Item</Button></div>
+                    <div className='flex gap-1'><PackagePlus className='mt-2'/>{item.item}</div>
+                    <Link href={'/found/claim'}><Button className='dark:bg-gray-300'>Claim Item</Button></Link>
                 </div>
             
+            </CardTitle>
+            <CardTitle className='flex items-center justify-center'>
+                <img src={item.image} alt="" className='rounded-lg w-70 flex items-center justify-center'/>
             </CardTitle>
             <CardDescription className='mt-2 p-1 rounded-lg text-sm text-[#49505a] bg-transparent'>
               Added By : {item.client.name} - {formatDate(item.createdAt)}

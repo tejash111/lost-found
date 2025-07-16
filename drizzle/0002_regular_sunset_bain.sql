@@ -1,0 +1,1 @@
+ALTER TABLE "found" DROP COLUMN "location";

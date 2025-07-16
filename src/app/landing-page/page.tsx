@@ -7,7 +7,7 @@ import { ThemeToggle } from '@/components/theme/theme-toggle';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from '@/lib/auth-client';
-import { Activity } from 'lucide-react';
+import { Activity, Camera, Earth, Handshake, Lock, Mic, Search } from 'lucide-react';
 
 export default function LandingPage() {
   const { data: session, isPending } = useSession();
@@ -25,34 +25,35 @@ export default function LandingPage() {
             <p className="text-lg md:text-xl text-muted-foreground">
               Lost something? Found something? Connect directly with people in your community to return lost items quickly and securely.
             </p>
-            <div className="flex flex-col  sm:flex-row gap-4 justify-center mt-4">
-              
-                <Button asChild size="lg" className='dark:bg-gray-300'>
-                  <Link href="/found/add">Report Found Item</Link>
-                </Button>
-
-            <div className='text-2xl'><Activity className='mt-2 ml-17 md:ml-0 dark:text-gray-400'/></div>
-
-                <Button size={'lg'} className='dark:bg-gray-300'>Found lost Item</Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
+              <Button asChild size="lg" className="dark:bg-gray-300 dark:text-black">
+                <Link href="/found/add">Report Found Item</Link>
+              </Button>
+              <div className="text-2xl flex items-center justify-center">
+                <Activity className="mt-2 ml-0 dark:text-gray-400" />
+              </div>
+              <Button asChild size="lg" className="dark:bg-gray-300 dark:text-black">
+                <Link href="/search">Found lost Item</Link>
+              </Button>
             </div>
           </section>
 
           {/* How It Works */}
           <section className="w-full max-w-3xl">
-            <h2 className="text-2xl font-bold mb-6">How It Works</h2>
+            <h2 className="text-2xl font-bold mb-6 dark:text-gray-300">How It Works</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center">
-                <span className="text-3xl mb-2">🔍</span>
+              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center dark:bg-gray-800 dark:text-gray-200">
+                <span className="text-3xl mb-2"><Search/></span>
                 <h3 className="font-semibold mb-1">Search</h3>
                 <p className="text-sm text-muted-foreground">Look for lost or found items in your area.</p>
               </div>
-              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center">
-                <span className="text-3xl mb-2">📢</span>
+              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center dark:bg-gray-800 dark:text-gray-200">
+                <span className="text-3xl mb-2"><Mic/></span>
                 <h3 className="font-semibold mb-1">Report</h3>
                 <p className="text-sm text-muted-foreground">Post details about a lost or found item easily.</p>
               </div>
-              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center">
-                <span className="text-3xl mb-2">🤝</span>
+              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center dark:bg-gray-800 dark:text-gray-200">
+                <span className="text-3xl mb-2"><Handshake/></span>
                 <h3 className="font-semibold mb-1">Connect</h3>
                 <p className="text-sm text-muted-foreground">Chat securely and arrange the return of items.</p>
               </div>
@@ -60,21 +61,21 @@ export default function LandingPage() {
           </section>
 
           {/* Features */}
-          <section className="w-full max-w-4xl">
-            <h2 className="text-2xl font-bold mb-6">Why Use Our App?</h2>
+          <section className="w-full max-w-4xl mt-8">
+            <h2 className="text-2xl font-bold mb-6 dark:text-gray-300">Why Use Our App?</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center">
-                <span className="text-2xl mb-2">🔒</span>
+              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center dark:bg-gray-800 dark:text-gray-200">
+                <span className="text-2xl mb-2"><Lock/></span>
                 <h4 className="font-semibold mb-1">Privacy First</h4>
                 <p className="text-sm text-muted-foreground text-center">Your data is safe. Only share what you want with others.</p>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center dark:bg-gray-800 dark:text-gray-200">
                 <span className="text-2xl mb-2">⚡</span>
                 <h4 className="font-semibold mb-1">Fast & Easy</h4>
                 <p className="text-sm text-muted-foreground text-center">Quickly post or search for items with a simple interface.</p>
               </div>
-              <div className="flex flex-col items-center">
-                <span className="text-2xl mb-2">🌍</span>
+              <div className="bg-card rounded-lg p-6 shadow flex flex-col items-center dark:bg-gray-800 dark:text-gray-200">
+                <span className="text-2xl mb-2"><Earth/></span>
                 <h4 className="font-semibold mb-1">Community Driven</h4>
                 <p className="text-sm text-muted-foreground text-center">Help and get help from people around you, peer-to-peer.</p>
               </div>
