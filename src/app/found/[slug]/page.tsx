@@ -12,7 +12,7 @@ const ItemDetail = async({
 }:{
   params: {slug : string}
 }) => {
-  const {slug}=await params
+  const {slug}=params
   const item = await getItemBySlug(slug)
   console.log(item);
   

@@ -22,8 +22,8 @@ const addSchema = z.object({
 })
 
 interface ItemFormProps{
-  isEditing ? : boolean,
-  found : {
+  isEditing?: boolean,
+  found?: {
     id : number,
     item : string,
     location : string,
@@ -41,7 +41,7 @@ type CloudinarySignature={
 
 type AddFormValues = z.infer<typeof addSchema>
 
-const AddForm=({isEditing,found} : ItemFormProps)=>{
+const AddForm=({isEditing = false,found} : ItemFormProps)=>{
   const router =useRouter()
     const [isLoading,setIsLoading]=useState(false)
     const [imageString, setImageString] = useState<string | undefined>(undefined);

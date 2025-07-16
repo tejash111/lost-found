@@ -48,7 +48,8 @@ const EditItem = async({
         item : item.item,
         location:item.location,
         description:item.description,
-        slug:item.slug
+        slug:item.slug,
+        image:item.image
       }}
       />
     </Container>
