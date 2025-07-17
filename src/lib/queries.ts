@@ -17,19 +17,18 @@ export const getAllItem = async () => {
       createdAt: found.createdAt,
       updatedAt: found.updatedAt,
       client: {
-        id: users.id,
-        name: users.name,
-        email: users.email,
-        emaiVerified: users.emailVerified,
-        createdAt: users.createdAt,
-        updatedAt: users.updatedAt
+        name: users.name
       }
     })
     .from(found)
     .leftJoin(users, eq(found.clientId, users.id))
     .orderBy(desc(found.createdAt));
 
-    return items;
+    // Map to ensure client is always { name: string }
+    return items.map(item => ({
+      ...item,
+      client: item.client && item.client.name ? { name: item.client.name } : { name: 'Unknown' }
+    }));
   } catch (error) {
     console.log(error);
     return [];
