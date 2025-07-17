@@ -13,16 +13,16 @@ export const getAllItem = async () => {
       description: found.description,
       image: found.image,
       slug: found.slug,
-      client_id: found.clientId,
-      created_at: found.createdAt,
-      updated_at: found.updatedAt,
+      clientId: found.clientId,
+      createdAt: found.createdAt,
+      updatedAt: found.updatedAt,
       client: {
         id: users.id,
         name: users.name,
         email: users.email,
-        email_verified: users.emailVerified,
-        created_at: users.createdAt,
-        updated_at: users.updatedAt
+        emaiVerified: users.emailVerified,
+        createdAt: users.createdAt,
+        updatedAt: users.updatedAt
       }
     })
     .from(found)
@@ -46,23 +46,24 @@ export const getItemBySlug = async (slug: string) => {
         description: found.description,
         image: found.image,
         slug: found.slug,
-        client_id: found.clientId,
-        created_at: found.createdAt,
-        updated_at: found.updatedAt,
+        clientId: found.clientId,
+        createdAt: found.createdAt,
+        updatedAt: found.updatedAt,
         client: {
-          id: users.id,
-          name: users.name,
-          email: users.email,
-          email_verified: users.emailVerified,
-          created_at: users.createdAt,
-          updated_at: users.updatedAt
+          name: users.name
         }
       })
       .from(found)
       .leftJoin(users, eq(found.clientId, users.id))
       .where(eq(found.slug, slug));
   
-      return item?.[0] || null;
+      // If no user is found, set client to { name: 'Unknown' } or similar fallback
+      if (!item?.[0]) return null;
+      const result = item[0];
+      return {
+        ...result,
+        client: result.client && result.client.name ? { name: result.client.name } : { name: 'Unknown' }
+      };
     } catch (error) {
       console.log(error);
       return null;
