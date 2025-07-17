@@ -1,38 +1,72 @@
-import { desc, eq } from "drizzle-orm"
-import { db } from "./db"
-import { found } from "./db/schema"
-
 
 //get all item
-export const getAllItem=async()=>{
-    
-    try {
-        const fetchAllItem = await db.query.found.findMany({
-            orderBy : [desc(found.createdAt)],
-            with : {
-                client: true
-            }
-        })
+import { db } from "./db";
+import { found, users } from "./db/schema";
+import { eq, desc } from "drizzle-orm";
 
-        return fetchAllItem;
-    } catch (error) {
-        console.log(error);
-        return [];
-        
-    }
-}
+export const getAllItem = async () => {
+  try {
+    const items = await db.select({
+      id: found.id,
+      item: found.item,
+      location: found.location,
+      description: found.description,
+      image: found.image,
+      slug: found.slug,
+      client_id: found.clientId,
+      created_at: found.createdAt,
+      updated_at: found.updatedAt,
+      client: {
+        id: users.id,
+        name: users.name,
+        email: users.email,
+        email_verified: users.emailVerified,
+        created_at: users.createdAt,
+        updated_at: users.updatedAt
+      }
+    })
+    .from(found)
+    .leftJoin(users, eq(found.clientId, users.id))
+    .orderBy(desc(found.createdAt));
 
-export const getItemBySlug=async(slug : string)=>{
+    return items;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+
+export const getItemBySlug = async (slug: string) => {
     try {
-        const item=await db.query.found.findFirst({
-            where : eq(found.slug,slug),
-            with : {
-                client: true
-            }
-        })
-        return item;
+      const item = await db.select({
+        id: found.id,
+        item: found.item,
+        location: found.location,
+        description: found.description,
+        image: found.image,
+        slug: found.slug,
+        client_id: found.clientId,
+        created_at: found.createdAt,
+        updated_at: found.updatedAt,
+        client: {
+          id: users.id,
+          name: users.name,
+          email: users.email,
+          email_verified: users.emailVerified,
+          created_at: users.createdAt,
+          updated_at: users.updatedAt
+        }
+      })
+      .from(found)
+      .leftJoin(users, eq(found.clientId, users.id))
+      .where(eq(found.slug, slug));
+  
+      return item?.[0] || null;
     } catch (error) {
-        console.log(error);
-        return null;
+      console.log(error);
+      return null;
     }
-}
+  };
+  
+  

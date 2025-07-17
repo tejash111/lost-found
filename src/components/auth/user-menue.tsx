@@ -24,26 +24,21 @@ const UserMenue = ({user} :UserMenuProps) => {
     return name.split(" ").map(n=>n[0]).join("").toUpperCase()
   }
 
-  const handleLogout=async()=>{
-    setIsLoading(true)
+  const handleLogout = async () => {
+    setIsLoading(true);
     try {
-    
-      await signOut({
-        fetchOptions:{
-          onSuccess: ()=>{
-            toast.success('You have been logged out successfully!')
-            router.refresh()
-            router.push('/')
-          }
-        }
-      })
+      await signOut(); // Just sign out
+      toast.success('You have been logged out successfully!');
+      router.refresh();
+      router.push('/');
     } catch (error) {
-      console.log(error);
-      toast.error('failed to logging out')
-    }finally{
-      setIsLoading(false)
+      console.error(error);
+      toast.error('Failed to log out');
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
+  
 
   return (
     <DropdownMenu >
