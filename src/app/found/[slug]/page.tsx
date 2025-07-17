@@ -1,6 +1,6 @@
 import ItemContent from "@/components/item/item-content"
 import { auth } from "@/lib/auth"
-import { getItemBySlug } from "@/lib/queries"
+import { getItemBySlug } from "@/lib/db/queries"
 import { headers } from "next/headers"
 import { notFound } from "next/navigation"
 

@@ -3,7 +3,7 @@
 import AddForm from '@/components/add/add-form';
 import Container from '@/components/layout/container.';
 import { auth } from '@/lib/auth';
-import { getItemBySlug } from '@/lib/queries';
+import { getItemBySlug } from '@/lib/db/queries';
 import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react'

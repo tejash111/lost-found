@@ -1,6 +1,6 @@
 
 import ItemList from "@/components/item/item-list";
-import { getAllItem } from "@/lib/queries";
+import { getAllItem } from "@/lib/db/queries";
 import { Metadata } from "next";
 import Image from "next/image";
 
